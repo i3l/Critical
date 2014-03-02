@@ -1,0 +1,21 @@
+= ICU Mortality Predictor
+
+== SQL Database Structure
+txtDataToSqlite.py converts and inserts INDIVIDUAL text files to the
+database located in ./data.  Bash script used to convert/insert data:
+
+for f in data/set-a/*.txt; do
+python2 txtDataToSqlite.py $f;
+done
+
+=== Tables
+pinfo::
+id (INT) | age (INT) | gender (INT) | height (REAL) | icutype (INT) |
+weight (INT)
+
+vstats::
+id (INT) | time (DATETIME) | var (TEXT) | value (REAL)
+
+outcome::
+id (INT) | saps1 (INT) | sofa (INT) | los (INT) | survival (INT) |
+death (INT)
