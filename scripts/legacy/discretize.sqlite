@@ -1,0 +1,216 @@
+DROP TABLE IF EXISTS ext_vstats;
+CREATE TABLE ext_vstats (
+        id INT,
+        time DATETIME,
+        var TEXT,
+        value REAL,
+        dvalue INT);
+INSERT INTO  ext_vstats
+SELECT
+        id,
+        time,
+        var,
+        value,
+        CASE WHEN var = "Albumin" THEN
+                CASE WHEN value < 3.5 THEN -1
+                WHEN value > 5 THEN 1
+                ELSE 0
+                END
+        WHEN var = "ALP" THEN
+                CASE WHEN value < 20 THEN -1
+                WHEN value > 140 THEN 1
+                ELSE 0
+                END
+        WHEN var = "ALT" THEN
+                CASE WHEN gender = 0 THEN
+                        CASE WHEN value < 0 THEN -1
+                        WHEN value > 34 THEN 1
+                        ELSE 0
+                        END
+                ELSE
+                        CASE WHEN value < 0 THEN -1
+                        WHEN value > 45 THEN 1
+                        ELSE 0
+                        END
+                END
+        WHEN var = "AST" THEN
+                CASE WHEN gender = 0 THEN
+                        CASE WHEN value < 6 THEN -1
+                        WHEN value > 34 THEN 1
+                        ELSE 0
+                        END
+                ELSE
+                        CASE WHEN value < 8 THEN -1
+                        WHEN value > 40 THEN 1
+                        ELSE 0
+                        END
+                END
+        WHEN var = "Bilirubin" THEN
+                CASE WHEN value < 0 THEN -1
+                WHEN value > 2.09 THEN 1
+                ELSE 0
+                END
+        WHEN var = "BUN" THEN
+                CASE WHEN value < 6 THEN -1
+                WHEN value > 20 THEN 1
+                ELSE 0
+                END
+        WHEN var = "Cholesterol" THEN
+                CASE WHEN value < 0 THEN -1
+                WHEN value > 200 THEN 1
+                ELSE 0
+                END
+        WHEN var = "Creatinine" THEN
+                CASE WHEN gender = 0 THEN
+                        CASE WHEN value < 0.5 THEN -1
+                        WHEN value > 1 THEN 1
+                        ELSE 0
+                        END
+                ELSE
+                        CASE WHEN value < 0.7 THEN -1
+                        WHEN value > 1.2 THEN 1
+                        ELSE 0
+                        END
+                END
+        WHEN var = "DiasABP" THEN
+                CASE WHEN value < 60 THEN -1
+                WHEN value > 79 THEN 1
+                ELSE 0
+                END
+        WHEN var = "FiO2" THEN
+                CASE WHEN value < 0 THEN -1
+                WHEN value > 1 THEN 1
+                ELSE 0
+                END
+        WHEN var = "GCS" THEN
+                CASE WHEN value < 3 THEN -1
+                WHEN value > 15 THEN 1
+                ELSE 0
+                END
+        WHEN var = "Glucose" THEN
+                CASE WHEN value < 79.2 THEN -1
+                WHEN value < 110 THEN 1
+                ELSE 0
+                END
+        WHEN var = "HCO3" THEN
+                CASE WHEN value < 18 THEN -1
+                WHEN value < 23 THEN 1
+                ELSE 0
+                END
+        WHEN var = "HCT" THEN
+                CASE WHEN gender = 0 THEN
+                        CASE WHEN value < 35 THEN -1
+                        WHEN value > 48 THEN 1
+                        ELSE 0
+                        END
+                ELSE
+                        CASE WHEN value < 39 THEN -1
+                        WHEN value > 62 THEN 1
+                        ELSE 0
+                        END
+                END
+        WHEN var = "HR" THEN
+                CASE WHEN value < 60 THEN -1
+                WHEN value > 100 THEN 1
+                ELSE 0
+                END
+        WHEN var = "K" THEN
+                CASE WHEN value < 3.5 THEN -1
+                WHEN value > 5 THEN 1
+                ELSE 0
+                END
+        WHEN var = "Lactate" THEN
+                CASE WHEN value < 0.5 THEN -1
+                WHEN value < 2 THEN 1
+                ELSE 0
+                END
+        WHEN var = "Mg" THEN
+                CASE WHEN value < 0.6 THEN -1
+                WHEN value > 0.95 THEN 1
+                ELSE 0
+                END
+        WHEN var = "MAP" THEN
+                CASE WHEN value < 70 THEN -1
+                WHEN value > 110 THEN 1
+                ELSE 0
+                END
+        WHEN var = "MechVent" THEN value
+        WHEN var = "Na" THEN
+                CASE WHEN value < 135 THEN -1
+                WHEN value > 147 THEN 1
+                ELSE 0
+                END
+        WHEN var = "NIDiasABP" THEN
+                CASE WHEN value < 60 THEN -1
+                WHEN value > 79 THEN 1
+                ELSE 0
+                END
+        WHEN var = "NIMAP" THEN
+                CASE WHEN value < 70 THEN -1
+                WHEN value > 110 THEN 1
+                ELSE 0
+                END
+        WHEN var = "NISysABP" THEN
+                CASE WHEN value < 90 THEN -1
+                WHEN value > 110 THEN 1
+                ELSE 0
+                END
+        WHEN var = "PaCO2" THEN
+                CASE WHEN value < 35 THEN -1
+                WHEN value > 45 THEN 1
+                ELSE 0
+                END
+        WHEN var = "PaO2" THEN
+                CASE WHEN value < 75 THEN -1
+                WHEN value > 100 THEN 1
+                ELSE 0
+                END
+        WHEN var = "pH" THEN
+                CASE WHEN value < 7.34 THEN -1
+                WHEN value > 7.44 THEN 1
+                ELSE 0
+                END
+        WHEN var = "Platelets" THEN
+                CASE WHEN value < 150 THEN -1
+                WHEN value > 450 THEN 1
+                ELSE 0
+                END
+        WHEN var = "RespRate" THEN
+                CASE WHEN value < 18 THEN -1
+                WHEN value > 22 THEN 1
+                ELSE 0
+                END
+        WHEN var = "SaO2" THEN
+                CASE WHEN value < 95 THEN -1
+                WHEN value > 100 THEN 1
+                ELSE 0
+                END
+        WHEN var = "SysABP" THEN
+                CASE WHEN value < 90 THEN -1
+                WHEN value > 119 THEN 1
+                ELSE 0
+                END
+        WHEN var = "Temp" THEN
+                CASE WHEN value < 36.3 THEN -1
+                WHEN value > 37.3 THEN 1
+                ELSE 0
+                END
+        WHEN var = "TropI" THEN
+                CASE WHEN value < 0 THEN -1
+                WHEN value > 10 THEN 1
+                ELSE 0
+                END
+        WHEN var = "TropT" THEN
+                CASE WHEN value < 0 THEN -1
+                WHEN value > 0.1 THEN 1
+                ELSE 0
+                END
+        WHEN var = "Urine" THEN 0
+        WHEN var = "WBC" THEN
+                CASE WHEN value < 3.5 THEN -1
+                WHEN value > 11 THEN 1
+                ELSE 0
+                END
+        WHEN var = "Weight" THEN 0
+        END AS "dvalue"
+FROM vstats JOIN pinfo USING (id);

@@ -1,0 +1,10 @@
+SELECT
+        var, percent
+FROM (
+        SELECT 
+                var,
+                COUNT(id)/(SELECT COUNT(id)*0.01 FROM pinfo) as percent
+        FROM (SELECT DISTINCT id, var FROM ext_vstats WHERE dvalue != 0)
+        GROUP BY var
+)
+WHERE percent > 40;

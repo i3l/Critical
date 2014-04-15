@@ -1,0 +1,81 @@
+.print "Survivor Support:"
+SELECT COUNT(id) / (
+        SELECT COUNT(id)*0.01 
+        FROM (
+                SELECT DISTINCT id
+                FROM ext_vstats JOIN outcome USING (id) WHERE death = 0
+        )
+)
+FROM (
+        SELECT DISTINCT id
+        FROM ext_vstats JOIN outcome USING (id)
+        WHERE dvalue != 0 AND var = "MAP" AND death = 0
+
+        INTERSECT
+
+        SELECT DISTINCT id
+        FROM ext_vstats JOIN outcome USING (id)
+        WHERE dvalue != 0 AND var = "pH" AND death = 0
+);
+
+.print "Survivor Confidence:"
+SELECT COUNT(id) / (
+        SELECT COUNT(id)*0.01
+        FROM (
+                SELECT DISTINCT id
+                FROM ext_vstats JOIN outcome USING (id)
+                WHERE dvalue != 0 AND var = "MAP" AND death = 0
+        )
+)
+FROM (
+        SELECT DISTINCT id
+        FROM ext_vstats JOIN outcome USING (id)
+        WHERE dvalue != 0 AND var = "MAP" AND death = 0
+
+        INTERSECT
+
+        SELECT DISTINCT id
+        FROM ext_vstats JOIN outcome USING (id)
+        WHERE dvalue != 0 AND var = "pH" AND death = 0
+);
+
+.print "Mortality Support:"
+SELECT COUNT(id) / (
+        SELECT COUNT(id)*0.01 
+        FROM (
+                SELECT DISTINCT id
+                FROM ext_vstats JOIN outcome USING (id) WHERE death = 1
+        )
+)
+FROM (
+        SELECT DISTINCT id
+        FROM ext_vstats JOIN outcome USING (id)
+        WHERE dvalue != 0 AND var = "MAP" AND death = 1
+
+        INTERSECT
+
+        SELECT DISTINCT id
+        FROM ext_vstats JOIN outcome USING (id)
+        WHERE dvalue != 0 AND var = "pH" AND death = 1
+);
+
+.print "Mortality Confidence:"
+SELECT COUNT(id) / (
+        SELECT COUNT(id)*0.01
+        FROM (
+                SELECT DISTINCT id
+                FROM ext_vstats JOIN outcome USING (id)
+                WHERE dvalue != 0 AND var = "MAP" AND death = 1
+        )
+)
+FROM (
+        SELECT DISTINCT id
+        FROM ext_vstats JOIN outcome USING (id)
+        WHERE dvalue != 0 AND var = "MAP" AND death = 1
+
+        INTERSECT
+
+        SELECT DISTINCT id
+        FROM ext_vstats JOIN outcome USING (id)
+        WHERE dvalue != 0 AND var = "pH" AND death = 1
+);
