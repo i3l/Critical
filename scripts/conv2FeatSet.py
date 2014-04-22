@@ -68,7 +68,7 @@ def transform(pid):
             featInstMat[jj+szAllParams] = str(float('NaN'))
         else:
             # find gender since some normal changes are gender-specific
-            genderIdx = params[params == 'Gender'].index
+            genderIdx = params[params == 'Gender'].index[0]
             gender = vals[genderIdx]
 
             # make sure to deal with specific cases of weight and urine
