@@ -105,6 +105,46 @@ class DbHandler {
 			return NULL;
 		}
     }
+	
+	public function getStatViz($patient_id, $stat) {
+		$result = array();
+		$result["cols"] = array();
+		$result["rows"] = array();
+		
+		$result["cols"][0] = array("label" => "Time", "type" => "number");
+		$result["cols"][1] = array("label" => $stat, "type" => "number");
+	  
+        $stmt = $this->conn->prepare("SELECT time, var, value FROM vstats WHERE id = ? AND var = ?");
+        $stmt->bind_param("is", $patient_id, $stat);
+		
+        if($stmt->execute()){
+			
+			$stat = array();
+			$this->db_bind_array($stmt, $stat);
+
+            while($stmt->fetch()) {
+				$tmp = array();
+				
+				$tmp[0] = array("v" => $this->timeStringToTimestamp($stat["time"]), "f" => $stat["time"]);
+				$tmp[1] = array("v" => $stat["value"]);
+								
+				$result["rows"][] = array("c" => $tmp);
+            }
+			
+			$stmt->close();
+			
+			return $result;
+		}else{
+			return NULL;
+		}
+    }
+	
+	private function timeStringToTimestamp($timeString)
+	{
+		$pieces = explode(":", $timeString);
+		
+		return $pieces[0] * 60 + $pieces[1];
+	}
 }
 	
 ?>
