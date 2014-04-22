@@ -94,13 +94,13 @@ def run_command(command):
 
 # Call weka on the instance and extract the classifaction.
 def classify(value_list):
-	instance = ','.join(value_list) + ',?'
-	with open(test_file, 'w') as the_file:
-		the_file.write(header)
-		the_file.write(instance)
-	weka_command = "java -classpath " + weka_jar + " weka.classifiers.trees.J48 -T " + test_file + " -l " + model_file + " -p 1"
-	result = run_command(weka_command)
 	try:
+		instance = ','.join(value_list) + ',?'
+		with open(test_file, 'w') as the_file:
+			the_file.write(header)
+			the_file.write(instance)
+		weka_command = "java -classpath " + weka_jar + " weka.classifiers.trees.J48 -T " + test_file + " -l " + model_file + " -p 1"
+		result = run_command(weka_command)
 		return str(result.split(':')[2][0])
 	except Exception:
 		return '?'
