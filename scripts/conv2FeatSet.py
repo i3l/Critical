@@ -103,7 +103,7 @@ def transform(pid):
         sofa_score = float('NaN')
     featInstMat.extend([str(mechVentParam), str(saps1_score), str(sofa_score)])
 
-    return ','.join(featInstMat)
+    return ','.join(featInstMat).replace('nan','?')
 
 if __name__ == '__main__':
     print transform('132540')
