@@ -32,10 +32,18 @@ def transform(pid):
     r = urllib2.urlopen(url)
     pinfo = json.load(r)
 
+    # Hack
+    keys = {'id': 'RecordID',
+            'age': 'Age',
+            'gender': 'Gender',
+            'height': 'Height',
+            'icutype': 'ICUType',
+            'weight': 'Weight'}
+
     f = open('tmp.txt', 'w')
     f.write('Time,Parameter,Value\n')
     for k in pinfo.keys():
-        f.write('00:00,%s,%s\n' % (k, pinfo[k]))
+        f.write('00:00,%s,%s\n' % (keys[k], pinfo[k]))
     for e in data['stats']:
         f.write('%s,%s,%s\n' % (e['time'], e['var'], e['value']))
     f.close()
