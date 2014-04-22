@@ -103,12 +103,7 @@ def transform(pid):
         sofa_score = float('NaN')
     featInstMat.extend([str(mechVentParam), str(saps1_score), str(sofa_score)])
 
-    # output to CSV
-    outflname = 'transFeatSet.csv'
-    file = open(outflname, "wb")
-    csvWriter = csv.writer( file, dialect='excel' )  #Defaults to the excel dialect
-    csvWriter.writerow(featInstMat)
-    file.close()   #Required, or the data won't get flushed to the file!
+    return ','.join(featInstMat)
 
 if __name__ == '__main__':
-    transform('132540')
+    print transform('132540')
