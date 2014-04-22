@@ -2,7 +2,7 @@ import subprocess
 
 test_file = "temp.arff"
 model_file = "../../data/weka_models/j48_full.model"
-weka_jar = "weka-3-6-10/weka.jar"
+weka_jar = "weka.jar"
 
 header = """
 @RELATION icu
