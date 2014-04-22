@@ -28,8 +28,14 @@ def transform(pid):
     r = urllib2.urlopen(url)
     data = json.load(r)
 
+    url = ('http://www.paulbernier.fr/critical_api/api/patient/' + pid)
+    r = urllib2.urlopen(url)
+    pinfo = json.load(r)
+
     f = open('tmp.txt', 'w')
     f.write('Time,Parameter,Value\n')
+    for k in pinfo.keys():
+        f.write('00:00,%s,%s\n' % (k, pinfo[k]))
     for e in data['stats']:
         f.write('%s,%s,%s\n' % (e['time'], e['var'], e['value']))
     f.close()
